@@ -21,13 +21,12 @@ pipeline {
         }
 
         stage('Provision VM') {
-            if (param.ACTION == "provision") {
-
-                steps {
-                    withCredentials([
-                        string(credentialsId: 'aws-access-key-id', variable: 'AWS_ACCESS_KEY_ID'),
-                        string(credentialsId: 'aws-secret-access-key', variable: 'AWS_SECRET_ACCESS_KEY')
-                    ]) {
+            steps {
+                withCredentials([
+                    string(credentialsId: 'aws-access-key-id', variable: 'AWS_ACCESS_KEY_ID'),
+                    string(credentialsId: 'aws-secret-access-key', variable: 'AWS_SECRET_ACCESS_KEY')
+                ]) {
+                    if (param.ACTION == "provision") {
                         sh '''
                             cd Terraform/
                             terraform init
@@ -39,12 +38,12 @@ pipeline {
             }
         }
         stage('Deprovision VM') {
-            if (param.ACTION == "deprovision") {
-                steps {
-                    withCredentials([
-                        string(credentialsId: 'aws-access-key-id', variable: 'AWS_ACCESS_KEY_ID'),
-                        string(credentialsId: 'aws-secret-access-key', variable: 'AWS_SECRET_ACCESS_KEY')
-                    ]) {
+            steps {
+                withCredentials([
+                    string(credentialsId: 'aws-access-key-id', variable: 'AWS_ACCESS_KEY_ID'),
+                    string(credentialsId: 'aws-secret-access-key', variable: 'AWS_SECRET_ACCESS_KEY')
+                ]) {
+                    if (param.ACTION == "deprovision") {
                         sh '''
                             cd Terraform/
                             terraform destroy -auto-approve
