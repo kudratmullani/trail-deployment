@@ -26,13 +26,15 @@ pipeline {
                     string(credentialsId: 'aws-access-key-id', variable: 'AWS_ACCESS_KEY_ID'),
                     string(credentialsId: 'aws-secret-access-key', variable: 'AWS_SECRET_ACCESS_KEY')
                 ]) {
-                    if (param.ACTION == "provision") {
-                        sh '''
-                            cd Terraform/
-                            terraform init
-                            terraform plan
-                            terraform apply -auto-approve
-                        '''
+                    script{
+                        if (param.ACTION == "provision") {
+                            sh '''
+                                cd Terraform/
+                                terraform init
+                                terraform plan
+                                terraform apply -auto-approve
+                            '''
+                        } 
                     }          
                 }
             }
@@ -43,12 +45,15 @@ pipeline {
                     string(credentialsId: 'aws-access-key-id', variable: 'AWS_ACCESS_KEY_ID'),
                     string(credentialsId: 'aws-secret-access-key', variable: 'AWS_SECRET_ACCESS_KEY')
                 ]) {
-                    if (param.ACTION == "deprovision") {
-                        sh '''
-                            cd Terraform/
-                            terraform destroy -auto-approve
-                        '''
-                    }          
+                    script {
+                        if (param.ACTION == "deprovision") {
+                            sh '''
+                                cd Terraform/
+                                terraform destroy -auto-approve
+                            '''
+                        }   
+                    }
+                           
                 }
             }
         }
