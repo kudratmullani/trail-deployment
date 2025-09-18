@@ -28,7 +28,7 @@ pipeline {
                 ]) {
                     script{
                         if (params.ACTION == "provision") {
-                            sh '''
+                            bat '''
                                 cd Terraform/
                                 terraform init
                                 terraform plan
@@ -47,7 +47,7 @@ pipeline {
                 ]) {
                     script {
                         if (params.ACTION == "deprovision") {
-                            sh '''
+                            bat '''
                                 cd Terraform/
                                 terraform destroy -auto-approve
                             '''
