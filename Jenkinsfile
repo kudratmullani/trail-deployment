@@ -27,7 +27,7 @@ pipeline {
                     string(credentialsId: 'aws-secret-access-key', variable: 'AWS_SECRET_ACCESS_KEY')
                 ]) {
                     script{
-                        if (param.ACTION == "provision") {
+                        if (params.ACTION == "provision") {
                             sh '''
                                 cd Terraform/
                                 terraform init
@@ -46,7 +46,7 @@ pipeline {
                     string(credentialsId: 'aws-secret-access-key', variable: 'AWS_SECRET_ACCESS_KEY')
                 ]) {
                     script {
-                        if (param.ACTION == "deprovision") {
+                        if (params.ACTION == "deprovision") {
                             sh '''
                                 cd Terraform/
                                 terraform destroy -auto-approve
